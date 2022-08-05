@@ -73,7 +73,7 @@ How to reproduce (compile from src):
 
 ```
 1. Build exim with asan 
-Script to build Exim is included.
+
 Enable SUPPORT_PAM=yes and AUTH_PLAINTEXT=yes
 
 2. Create /etc/pam.d/exim
