@@ -103,7 +103,7 @@ LOGIN:
 #./build-Linux-x86_64/exim -bd -d
 
 5. Run test script
-$ ./t1.py
+$ ./t1.py localhost
 ```
 
 Asan log attached. 
