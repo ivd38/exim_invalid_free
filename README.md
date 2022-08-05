@@ -1,7 +1,7 @@
 Exim 4.95 invalid free 
 
 Silently fixed in Exim 4.96.
-<code>
+```
 static int
 pam_converse (int num_msg, PAM_CONVERSE_ARG2_TYPE **msg,
   struct pam_response **resp, void *appdata_ptr)
@@ -60,15 +60,18 @@ if (!(yield = malloc((size_t)size)))
 [4] yield = US yield + sizeof(int);
 ...
 return yield;
-              </code>
+```
 
 Note on line #1 reply[i].resp  is allocated using store_malloc().
+
 store_malloc() allocates size+4 bytes using malloc(), and returns ptr + 4 (see line #4),
 i.e. store_malloc() should be matched with store_free().
+
 In our case reply[i].resp will be freed by libpam using free().
 
 How to reproduce (compile from src):
 
+```
 1. Build exim with asan 
 Script to build Exim is included.
 Enable SUPPORT_PAM=yes and AUTH_PLAINTEXT=yes
@@ -101,6 +104,7 @@ LOGIN:
 
 5. Run test script
 $ ./t1.py
+```
 
 Asan log attached. 
 
