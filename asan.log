@@ -1,0 +1,56 @@
+50747 SMTP>> 250-example.nil Hello hola [127.0.0.1]
+50747 250-SIZE 52428800
+50747 250-8BITMIME
+50747 250-PIPELINING
+50747 250-PIPE_CONNECT
+50747 250-AUTH PLAIN LOGIN
+50747 250-CHUNKING
+50747 250-PRDR
+50747 250 HELP
+50747 SMTP<< auth plain
+50747 SMTP>> 334 
+50747 SMTP<< dGVzdAB0ZXN0ADEyMzQ=
+50747 PLAIN authenticator server_condition:
+50747   $auth1 = test
+50747   $auth2 = test
+50747   $auth3 = 1234
+50747   $1 = test
+50747   $2 = test
+50747   $3 = 1234
+50747 Running PAM authentication for user "test"
+=================================================================
+==50747==ERROR: AddressSanitizer: attempting free on address which was not malloc()-ed: 0x602000000954 in thread T0
+    #0 0x7fd42dfa340f in __interceptor_free ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:122
+    #1 0x7fd42de6d65b  (/lib/x86_64-linux-gnu/libpam.so.0+0x565b)
+    #2 0x7fd42a797851 in pam_sm_authenticate (/lib/x86_64-linux-gnu/security/pam_unix.so+0x4851)
+    #3 0x7fd42de6c055  (/lib/x86_64-linux-gnu/libpam.so.0+0x4055)
+    #4 0x7fd42de6b933 in pam_authenticate (/lib/x86_64-linux-gnu/libpam.so.0+0x3933)
+    #5 0x558283e89680 in auth_call_pam /exim/exim-4.95/build-Linux-x86_64/auths/call_pam.c:173
+    #6 0x558283c6c1bc in eval_condition /exim/exim-4.95/build-Linux-x86_64/expand.c:2679
+    #7 0x558283c48bd0 in expand_string_internal /exim/exim-4.95/build-Linux-x86_64/expand.c:4778
+    #8 0x558283c44b1b in expand_cstring /exim/exim-4.95/build-Linux-x86_64/expand.c:8261
+    #9 0x558283c438a4 in expand_string /exim/exim-4.95/build-Linux-x86_64/expand.c:8272
+    #10 0x558283ea5639 in auth_check_some_cond /exim/exim-4.95/build-Linux-x86_64/auths/check_serv_cond.c:84
+    #11 0x558283ea52c7 in auth_check_serv_cond /exim/exim-4.95/build-Linux-x86_64/auths/check_serv_cond.c:35
+    #12 0x558283e8d7a7 in auth_plaintext_server /exim/exim-4.95/build-Linux-x86_64/auths/plaintext.c:124
+    #13 0x558283da21c6 in smtp_in_auth /exim/exim-4.95/build-Linux-x86_64/smtp_in.c:3780
+    #14 0x558283d939d3 in smtp_setup_msg /exim/exim-4.95/build-Linux-x86_64/smtp_in.c:4188
+    #15 0x558283bc332a in handle_smtp_call /exim/exim-4.95/build-Linux-x86_64/daemon.c:551
+    #16 0x558283bbca7b in daemon_go /exim/exim-4.95/build-Linux-x86_64/daemon.c:2594
+    #17 0x558283c37fce in main /exim/exim-4.95/build-Linux-x86_64/exim.c:4947
+    #18 0x7fd42d55e082 in __libc_start_main ../csu/libc-start.c:308
+    #19 0x558283b8c20d in _start (/exim/exim-4.95/build-Linux-x86_64/exim+0x13f20d)
+
+0x602000000954 is located 4 bytes inside of 16-byte region [0x602000000950,0x602000000960)
+allocated by thread T0 here:
+    #0 0x7fd42dfa3808 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:144
+    #1 0x558283dc1e0f in internal_store_malloc /exim/exim-4.95/build-Linux-x86_64/store.c:876
+    #2 0x558283dc5499 in store_malloc_3 /exim/exim-4.95/build-Linux-x86_64/store.c:909
+    #3 0x558283dc8bde in string_copy_malloc /exim/exim-4.95/build-Linux-x86_64/string.c:490
+    #4 0x558283e89c6f in pam_converse /exim/exim-4.95/build-Linux-x86_64/auths/call_pam.c:91
+    #5 0x7fd42de71286 in pam_vprompt (/lib/x86_64-linux-gnu/libpam.so.0+0x9286)
+
+SUMMARY: AddressSanitizer: bad-free ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:122 in __interceptor_free
+==50747==ABORTING
+50720 child 50747 ended: status=0x100
+
