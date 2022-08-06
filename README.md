@@ -1,6 +1,6 @@
 Exim 4.95 invalid free 
 
-Silently fixed in Exim 4.96.
+Silently fixed in Exim 4.96 - https://github.com/Exim/exim/commit/51be321b27825c01829dffd90f11bfff256f7e42
 ```
 static int
 pam_converse (int num_msg, PAM_CONVERSE_ARG2_TYPE **msg,
