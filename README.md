@@ -108,4 +108,5 @@ $ ./t1.py localhost
 
 Asan log attached. 
 
+There is another store_malloc()/free() mismatch in Exim 4.96 spf.c:SPF_dns_exim_new(), but it seems like it is not exploitable at all.
 
