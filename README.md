@@ -1,4 +1,4 @@
-Exim 4.95 invalid free 
+[CVE-2022-37451] Exim 4.95 invalid free 
 
 Silently fixed in Exim 4.96 - https://github.com/Exim/exim/commit/51be321b27825c01829dffd90f11bfff256f7e42
 ```
